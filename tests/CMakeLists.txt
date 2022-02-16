@@ -8,8 +8,3 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
     gtest
     gtest_main
 )
-
-add_test(
-    NAME ${PROJECT_NAME}
-    COMMAND ${PROJECT_NAME}
-)
