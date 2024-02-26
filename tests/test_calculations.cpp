@@ -9,25 +9,23 @@ extern "C"
 #include "../modules/calculations.h"
 }
 
-
-class PerformanceTest : public ::testing::Test
+class PerformanceTestBase : public ::testing::Test
 {
 protected:
-    std::mutex mtx; // Mutex for synchronized access to shared data
+    std::mutex mtx;
     std::chrono::high_resolution_clock::time_point start_time;
-    int num_iterations; // Number of test iterations per thread (set in SetUp)
-    // std::vector<std::chrono::microseconds> thread_durations;
     std::vector<std::chrono::nanoseconds> thread_durations;
+    int num_iterations = 100;
 
+    virtual void ExecuteTestLogic() = 0;
     void SetUp() override
     {
         start_time = std::chrono::high_resolution_clock::now();
-        num_iterations = 100 /* Set desired number of iterations */; // Replace with actual value
+        num_iterations = 100;
     }
 
     void TearDown() override
     {
-        // Calculate and print the median duration
         std::sort(thread_durations.begin(), thread_durations.end());
         size_t mid_index = thread_durations.size() / 2;
         std::chrono::nanoseconds median_duration_cron = thread_durations[mid_index];
@@ -39,31 +37,47 @@ protected:
         std::cout << "Median thread execution duration: " << median_duration << " milliseconds" << std::endl;
         EXPECT_LE(median_duration, 1000);
     }
-
     void RunTest()
     {
         auto start_time = std::chrono::high_resolution_clock::now();
 
-        int arr[] = {1, 5, 4, 6, 7, 9, 8, 10, 2, 3};
-        size_t n = sizeof(arr) / sizeof(arr[0]);
-        float mean = calculate_mean(arr, n);
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-        EXPECT_FLOAT_EQ(mean, 5.5);
+        ExecuteTestLogic();
 
         auto end_time = std::chrono::high_resolution_clock::now();
         auto duration_ns = end_time - start_time;
-        // auto duration_us_count = std::chrono::duration_cast<long long>(duration_ns).count() / 1000.0; // Convert to microseconds using division
 
-        // Acquire mutex before pushing to the vector (optional if thread-safe)
         std::lock_guard<std::mutex> lock(mtx);
         thread_durations.push_back(duration_ns);
     }
 };
-
-TEST_F(PerformanceTest, MultiThreadedTest)
+class TestHappyFlow : public PerformanceTestBase
 {
-    const int num_threads = 4; // Number of threads
+protected:
+    void ExecuteTestLogic() override
+    {
+        int arr[] = {1, 5, 4, 6, 7, 9, 8, 10, 2, 3};
+        size_t n = sizeof(arr) / sizeof(arr[0]);
+        float mean = calculate_mean(arr, n);
+        EXPECT_FLOAT_EQ(mean, 5.5);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+};
+// class TestEmptyArr : public PerformanceTestBase
+// {
+// protected:
+//     void ExecuteTestLogic() override
+//     {
+//         int arr[] = {};
+//         size_t n = sizeof(arr) / sizeof(arr[0]);
+//         float mean = calculate_mean(arr, n);
+//         EXPECT_FLOAT_EQ(mean, 5.5);
+//         std::this_thread::sleep_for(std::chrono::milliseconds(10));
+//     }
+// };
 
+TEST_F(TestHappyFlow, Test_Happy_Flow)
+{
+    const int num_threads = 4;
     // Create and start threads
     std::vector<std::thread> threads;
     for (int i = 0; i < num_threads; ++i)
