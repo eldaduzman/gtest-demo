@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="5" failures="0" disabled="0" errors="0" time="0.101" timestamp="2022-02-16T13:14:52.054" name="AllTests">
+  <testsuite name="test_calculations" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.067" timestamp="2022-02-16T13:14:52.073">
+    <testcase name="simple_arr" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.079" classname="test_calculations" />
+    <testcase name="empty_arr" status="run" result="completed" time="0.001" timestamp="2022-02-16T13:14:52.092" classname="test_calculations" />
+    <testcase name="all_negatives" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.106" classname="test_calculations" />
+    <testcase name="mix_negative_positive" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.120" classname="test_calculations" />
+    <testcase name="with_zeros" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.132" classname="test_calculations" />
+  </testsuite>
+</testsuites>
