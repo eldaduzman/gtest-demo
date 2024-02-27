@@ -17,7 +17,7 @@ protected:
     std::mutex mtx;
     std::chrono::high_resolution_clock::time_point start_time;
     std::vector<float> thread_durations;
-    int num_iterations = 0;
+    int _number_of_iterations = 0;
     bool sorted = false;
 
     virtual void ExecuteTestLogic() = 0;
@@ -67,15 +67,15 @@ protected:
         std::lock_guard<std::mutex> lock(mtx);
         thread_durations.push_back(duration_ms);
     }
-    void RunMultiThreadedTest(int input_num_iterations, int num_threads, float median_duration_upper_threshold_milliseconds)
+    void RunMultiThreadedTest(int how_many_iterations, int how_many_threads, float median_duration_upper_threshold_milliseconds)
     {
         std::vector<std::thread> threads;
-        this->num_iterations = input_num_iterations;
-        for (int i = 0; i < num_threads; ++i)
+        this->_number_of_iterations = how_many_iterations;
+        for (int i = 0; i < how_many_threads; ++i)
         {
             threads.emplace_back([this]
                                  {
-                for (int j = 0; j < num_iterations; ++j) {
+                for (int j = 0; j < _number_of_iterations; ++j) {
                     RunTest();
                 } });
         }
@@ -121,5 +121,5 @@ protected:
 
 TEST_F(TestHappyFlow, Test_Happy_Flow)
 {
-    RunMultiThreadedTest(10, 3, 900.0);
+    RunMultiThreadedTest(10, 3, 900.0); // 10 threads, 3 iterations, 900ms median
 }
