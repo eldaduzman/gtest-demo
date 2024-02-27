@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include "calculations.h"
 
 int calculate_sum(int arr[], size_t length)
@@ -15,7 +16,8 @@ int calculate_sum(int arr[], size_t length)
 
 float calculate_mean(int arr[], size_t length)
 {
-    if(length == 0)
+
+    if (length == 0)
     {
         // if length is 0, we can't calculate mean due to divide by zero error.
         return 0;
@@ -24,4 +26,17 @@ float calculate_mean(int arr[], size_t length)
     // else:
     int sum = calculate_sum(arr, length);
     return (float)sum / length;
+}
+float calculate_stupid_mean(int arr[], size_t length, int factor)
+{
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < factor; i++)
+    {
+        for (j = 0; j < factor; j++)
+        {
+            int k = 1;
+        }
+    }
+    return calculate_mean(arr, length);
 }
