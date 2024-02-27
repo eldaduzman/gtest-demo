@@ -63,7 +63,6 @@ protected:
 
         auto end_time = std::chrono::high_resolution_clock::now();
         auto duration_ms = (end_time - start_time).count() / 1000000.0;
-        std::cout << duration_ms << std::endl;
 
         std::lock_guard<std::mutex> lock(mtx);
         thread_durations.push_back(duration_ms);

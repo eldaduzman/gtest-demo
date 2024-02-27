@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites tests="5" failures="0" disabled="0" errors="0" time="0.101" timestamp="2022-02-16T13:14:52.054" name="AllTests">
-  <testsuite name="test_calculations" tests="5" failures="0" disabled="0" skipped="0" errors="0" time="0.067" timestamp="2022-02-16T13:14:52.073">
-    <testcase name="simple_arr" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.079" classname="test_calculations" />
-    <testcase name="empty_arr" status="run" result="completed" time="0.001" timestamp="2022-02-16T13:14:52.092" classname="test_calculations" />
-    <testcase name="all_negatives" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.106" classname="test_calculations" />
-    <testcase name="mix_negative_positive" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.120" classname="test_calculations" />
-    <testcase name="with_zeros" status="run" result="completed" time="0" timestamp="2022-02-16T13:14:52.132" classname="test_calculations" />
+<testsuites tests="1" failures="1" disabled="0" errors="0" time="14.062" timestamp="2024-02-27T11:28:18.289" name="AllTests">
+  <testsuite name="TestHappyFlow" tests="1" failures="1" disabled="0" skipped="0" errors="0" time="14.035" timestamp="2024-02-27T11:28:18.303">
+    <testcase name="Test_Happy_Flow" status="run" result="completed" time="14.024" timestamp="2024-02-27T11:28:18.307" classname="TestHappyFlow">
+      <failure message="C:\workspace-vscode\gtest-demo\tests\test_calculations.cpp:97&#x0A;Expected: (calculate_median_duration_milliseconds()) &lt;= (median_duration_upper_threshold_milliseconds), actual: 1322.39 vs 900" type=""><![CDATA[C:\workspace-vscode\gtest-demo\tests\test_calculations.cpp:97
+Expected: (calculate_median_duration_milliseconds()) <= (median_duration_upper_threshold_milliseconds), actual: 1322.39 vs 900]]></failure>
+    </testcase>
   </testsuite>
 </testsuites>
